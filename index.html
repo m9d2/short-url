@@ -1,0 +1,52 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.13"></script>
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css">
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Element Plus demo</title>
+</head>
+<body>
+<div id="app" style="padding-top: 300px">
+    <el-row>
+        <el-col :span="10" :offset="10">
+            <div style="size: 90cm; font-size: 30px; color: #409EFF">短链接生成</div>
+        </el-col>
+    </el-row>
+    <el-row :gutter="0" style="padding-top: 40px">
+        <el-col :span="10" :offset="6">
+            <el-input
+                    placeholder="请输入内容"
+                    v-model="url"
+                    clearable>
+            </el-input>
+        </el-col>
+        <el-col :span="4" style="padding-left: 5px">
+            <el-button type="primary" v-on:click="getUrl">转换</el-button>
+        </el-col>
+    </el-row>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            url: ''
+        },
+        methods: {
+            getUrl: function () {
+                axios
+                    .get('https://m9d2.xyz/?u=' + this.url)
+                    .then(function (response) {
+                        console.log(response.data.data)
+                        this.$set(this.url, response.data.data)
+                    })
+            }
+        }
+    });
+</script>
+</body>
+</html>
